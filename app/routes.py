@@ -61,10 +61,13 @@ def upload_file():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('uploaded_file', filename=filename))
+            # return redirect(url_for('uploaded_file', filename=filename))
+            return redirect(url_for('upload_success'))
     return render_template('upload.html', title='Upload')
 
-@app.route('/uploads/<filename>')
-def uploaded_file(filename):
-    # run margot here?!
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+@app.route('/upload_success')
+def upload_success():
+    # run MArgoT here
+    user = {'username': 'Walther',
+            'expiringDate': '29.03.2020'}
+    return render_template('upload_success.html', title='Upload', user=user)

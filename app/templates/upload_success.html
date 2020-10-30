@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <title>Upload Success!</title>
+    <h1>Dein Account wurde bis zum XX.YY.ZZZZ verlaengert</h1>
+    <div>
+	    <p>Dein Account wurde bis zum {{ user.expiringDate }}</p>
+	    <p>Dein Nutzername ist {{ user.username }}</p>
+    </div>
+{% endblock %}
