@@ -6,6 +6,7 @@ from app.forms import LoginForm
 import os
 from flask import Flask, flash, request, redirect, url_for, send_from_directory
 from werkzeug.utils import secure_filename
+from datetime import datetime
 
 UPLOAD_FOLDER = '/tmp'
 ALLOWED_EXTENSIONS = {'pdf', 'txt'}
@@ -59,7 +60,8 @@ def upload_file():
             flash('No selected file')
             return redirect(request.url)
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
+            now = datetime.now()
+            filename = "Margot" + now.strftime("-%m%d%Y%H%M%S-") + secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             # return redirect(url_for('uploaded_file', filename=filename))
             return redirect(url_for('upload_success'))

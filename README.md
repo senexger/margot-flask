@@ -9,7 +9,8 @@ Bevor dieses Tool entwickelt war wurden die Bescheinigungen per Mail an Staff ge
 
 ## Roadmap
 
-- [ ] save uploaded pdf in /tmp
+- [x] save uploaded pdf in /tmp
+- [x] give output a unique name
 - [ ] run Margot with just a pdf as input
 - [ ] gif the uploaded pdf to margot
 
