@@ -1,12 +1,13 @@
 from flask import render_template, flash, redirect
 from app import app
 from app.forms import LoginForm
+from app.Margot import margot
 
 # for uploading feature required
 import os
+from datetime import datetime
 from flask import Flask, flash, request, redirect, url_for, send_from_directory
 from werkzeug.utils import secure_filename
-from datetime import datetime
 
 UPLOAD_FOLDER = '/tmp'
 ALLOWED_EXTENSIONS = {'pdf', 'txt'}
@@ -63,13 +64,14 @@ def upload_file():
             now = datetime.now()
             filename = "Margot" + now.strftime("-%m%d%Y%H%M%S-") + secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            margot(file)
             # return redirect(url_for('uploaded_file', filename=filename))
             return redirect(url_for('upload_success'))
     return render_template('upload.html', title='Upload')
 
 @app.route('/upload_success')
 def upload_success():
-    # run MArgoT here
+    # TODO: or run MArgoT here?
     user = {'username': 'Walther',
             'expiringDate': '29.03.2020'}
     return render_template('upload_success.html', title='Upload', user=user)

@@ -1,22 +1,23 @@
-# MArgoT
-
-Mail Agent Running (gendered of_course) Tool
+#+TITLE: Margot
+#+TITLE: Mail Agent Running (gendered of_course) Tool
 
 old deprecated name.
 
 Website auf der die Studenten ihre Immatrikulationsbescheinigungen direkt hoch laden können um ihren Account zu Verlängern.
 Bevor dieses Tool entwickelt war wurden die Bescheinigungen per Mail an Staff geschickt und dort händisch kontrolliert und die Accounts dann händisch verlängert.
 
-## Roadmap
-
-- [x] save uploaded pdf in /tmp
-- [x] give output a unique name
+*  TODO: Roadmap [progress]
+- [X] Save uploaded pdf in /tmp
+- [X] give output a unique name
+- [X] put margot in flask code
+- [-] give the uploaded pdf to margot
 - [ ] run Margot with just a pdf as input
-- [ ] gif the uploaded pdf to margot
+  + [ ] give pdf as file. maybe its possible to make module margot py2 and the rest py3
+- [ ] ldaptool -> python2 problem...
 
-## How to run
+** How to run
 
-enter with xonsh virtual environment:
+enter with xonsh virtual environment
 
 $ xontrib load vox
 $ vox enter myenv
