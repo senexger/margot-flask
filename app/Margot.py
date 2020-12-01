@@ -1,19 +1,61 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import io
 import sys
-from datetime import datetime, timedelta
+import slate3k as slate
+# from datetime import datetime, timedelta
 
 # from matriculation import Matriculation
 
-# TODO: Verdammt. ldaptools ist python2
+# pdf parser
+from pdfminer.converter import TextConverter
+from pdfminer.pdfinterp import PDFPageInterpreter
+from pdfminer.pdfinterp import PDFResourceManager
+from pdfminer.pdfpage import PDFPage
+
+# TODO Verdammt. ldaptools ist python2
 # sys.path.append('/net/local64') # Damit ldaptools gefunden wird
 # import ldaptools
 
 # DEBUG=True
 
-def margot():
-	print("Das Spiel kann beginnen")
-	return 1
+# def margot(file_path, file_name):
+# 	print("Das Spiel kann beginnen")
+#
+# 	file_name = file_path + '/' + file_name
+# 	print(file_name)
+# 	with open(file_name, 'rb') as f:
+# 		doc = slate.PDF(f)
+# 		doc
+#
+# 	return 1
+
+
+
+def extract_text_from_pdf(pdf_path):
+    resource_manager = PDFResourceManager()
+    fake_file_handle = io.StringIO()
+    converter = TextConverter(resource_manager, fake_file_handle)
+    page_interpreter = PDFPageInterpreter(resource_manager, converter)
+
+    with open(pdf_path, 'rb') as fh:
+        for page in PDFPage.get_pages(fh,
+                                      caching=True,
+                                      check_extractable=True):
+            page_interpreter.process_page(page)
+
+        text = fake_file_handle.getvalue()
+
+    # close open handles
+    converter.close()
+    fake_file_handle.close()
+
+    if text:
+        print(text)
+        return text
+
+if __name__ == '__main__':
+    print(extract_text_from_pdf('w9.pdf'))
 
 #
 #if __name__ == "__main__":

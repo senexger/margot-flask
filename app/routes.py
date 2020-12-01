@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect
 from app import app
 from app.forms import LoginForm
-from app.Margot import margot
+from app.Margot import extract_text_from_pdf
 
 # for uploading feature required
 import os
@@ -64,7 +64,8 @@ def upload_file():
             now = datetime.now()
             filename = "Margot" + now.strftime("-%m%d%Y%H%M%S-") + secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            margot(file)
+            file_absolute_path = UPLOAD_FOLDER + '/' + filename
+            extract_text_from_pdf(file_absolute_path)
             # return redirect(url_for('uploaded_file', filename=filename))
             return redirect(url_for('upload_success'))
     return render_template('upload.html', title='Upload')
